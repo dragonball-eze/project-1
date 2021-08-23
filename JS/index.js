@@ -19,3 +19,11 @@ document.getElementById("space-board").style.display="none";//to make the game i
     updateCanvas();
   }
 
+  function updateCanvas() {
+    context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight)
+    currentGame.player.drawPlayer();
+    if (currentGame.gameOver === false) {
+      currentGame.animationId = requestAnimationFrame(updateCanvas);
+    }
+  }
+
