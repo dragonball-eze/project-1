@@ -3,9 +3,10 @@ const context = canvas.getContext("2d");
 const width =canvas.width;const height=canvas.height;
 let leftkey=rightkey=false;
 document.getElementById("space-board").style.display="none";//to make the game invisible at first
+document.getElementById('game-over').style.display = 'none';
+document.getElementById('game-over-score').style.display = 'none';
 
-
-  document.getElementById('start-button').onclick = () => {
+document.getElementById('start-button').onclick = () => {
   document.getElementById("space-board").style.display="block";// to make the board appear
     startGame();
   };
@@ -16,8 +17,12 @@ document.getElementById("space-board").style.display="none";//to make the game i
   const shootSound = new Audio ()
   shootSound.src = "../sounds_Shoot.mp3";
 
+  const gameIntroSound = new Audio ()
+  gameIntroSound.src = "../sounds_intro.mp3";
+
 
   function startGame() {
+    gameIntroSound.play();
     currentGame = new Game();
     currentGame.player = new Player();
     currentGame.player.drawPlayer();

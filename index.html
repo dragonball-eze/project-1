@@ -14,16 +14,22 @@
 
 </head>
 <body>
-    <div id="space-board">
-        <canvas id="canvas" width="500" height="700"></canvas>
+    <div id="score-div">
+        <p>Score: <span id="score"> 0 </span></p>
     </div>
-    
+    <div id="space-board">
+        <canvas id="canvas" width="500" height="600"></canvas>
+    </div>
     <div class="game-intro">
         <img src="./images/space-invadors-logo.jpg" alt="" class="logo-img" />
         <br />
         <button id="start-button">Start Game</button>
         <p>Clean up the space with your laser!</p>
         <img src="./images/arrow-keys.png" alt="" class="arrows-img" />
+      </div>
+      <div id="bye-message" >
+        <h1 id="game-over">GAME OVER</h1>
+        <p id="game-over-score">FINAL SCORE<span id="score"> 0</p>
       </div>
 </body>
 </html>
