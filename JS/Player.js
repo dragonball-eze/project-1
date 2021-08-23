@@ -2,7 +2,7 @@ class Player {
   constructor() {
      this.x = 225;
      this.y = 650;
-     this.width = 50;
+     this.width = 384;
      this.height = 50;
      this.speedX = 0;
      this.speedY = 0;
@@ -10,7 +10,7 @@ class Player {
 
   drawPlayer(){
       const player = new Image();
-      player.src = ".images/autronaut.png";
+      player.src = "./images/autronaut.png";
       context.drawImage(player, this.x, this.y, this.width, this.height);
   }
 

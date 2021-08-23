@@ -1,6 +1,7 @@
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
-
+const width =canvas.width;const height=canvas.height;
+let leftkey=rightkey=false;
 document.getElementById("space-board").style.display="none";//to make the game invisible at first
 
 
@@ -23,7 +24,40 @@ document.getElementById("space-board").style.display="none";//to make the game i
     context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight)
     currentGame.player.drawPlayer();
     if (currentGame.gameOver === false) {
-      currentGame.animationId = requestAnimationFrame(updateCanvas);
-    }
+      currentGame.animationId = requestAnimationFrame(updateCanvas);}
   }
 
+
+  function onKeyDown(e){
+    let keycode=e.keyCode;
+    //left
+    if(keycode==37){
+        leftkey=true;
+    }
+    //right
+    if(keycode==39){
+        rightkey=true;
+    }
+
+      //space
+      if(keycode==32){
+        game.shipShootMissile();
+    }
+}
+
+function onKeyUp(e){
+    let keycode=e.keyCode;
+    //left
+    if(keycode==37){
+        leftkey=false;
+    }
+    //right
+    if(keycode==39){
+        rightkey=false;
+    }
+}
+
+window.onload=function(){
+    startGame();
+    updateCanvas();
+}
