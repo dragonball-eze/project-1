@@ -10,7 +10,7 @@ class Player {
 
   drawPlayer(){
       const player = new Image();
-      player.src = ".images/autronaut.png";
+      player.src = "./images/astronaut.png";
       context.drawImage(player, this.x, this.y, this.width, this.height);
   }
 
@@ -30,15 +30,17 @@ class Player {
           break;
 
         case "ArrowDown":
-          if(this.y > this.height) {
-            this.y -= 10;
-          }
+          if (this.y < canvas.clientHeight - this.height) {
+            this.y += 10;
+          } 
           break;
 
         case "ArrowUp":
-          if(this.y < canvas.clientHeight - this.height) {
-            this.y += 10;
+          if (this.y > 0) {
+            this.y -= 10;
+
           }
+          
           break;
       }
     }
@@ -61,4 +63,3 @@ class Player {
   }
 
 
-  
