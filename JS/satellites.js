@@ -10,6 +10,8 @@ class Obstacle {
       const satellite = new Image();
       satellite.src = "./images/satellites.png";
       context.drawImage(satellite, this.x, this.y, this.width, this.height);
+      context.strokeStyle = "green";
+      context.strokeRect(this.x, this.y, this.width, this.height);
     }
   
     top() {

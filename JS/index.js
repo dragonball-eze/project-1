@@ -19,12 +19,27 @@ let currentGame;
 
    //Bullet impact
    function bulletHit(alien, bullet) {
+    if (bullet && alien){
+      return !(bullet.x > alien.x + alien.width ||
+        bullet.x < alien.x ||
+        bullet.y > alien.y + alien.height ||
+        bullet.y + bullet.height < alien.y)
+    }
+    
+  }
+
+
+/*   function bulletHit(alien, bullet, satellite) {
 
     return !(bullet.x > alien.x + alien.width ||
     bullet.x < alien.x ||
     bullet.y > alien.y + alien.height ||
+    bullet.y + bullet.height < alien.y ||
+    bullet.x > satellite.x + satellite.width ||
+    bullet.x < satellite.x ||
+    bullet.y > satellite.y + satellite.height ||
     bullet.y + bullet.height < alien.y)
-  }
+  } */
 
   function startGame() {
     currentGame = new Game();
@@ -68,6 +83,8 @@ let currentGame;
       }
 
       if (detectCollision(satellite)) {
+        console.log(currentGame.player);
+        console.log(satellite);
         currentGame.gameOver = true;
         currentGame.satellitesFrequency = 0;
         currentGame.score = 0;
@@ -113,6 +130,8 @@ let currentGame;
       }
 
       if (detectCollision(alien)) {
+        console.log(alien);
+        console.log(currentGame.player);
         currentGame.gameOver = true;
         currentGame.aliensFrequency = 0;
         //currentGame.score = 0;
@@ -146,18 +165,40 @@ let currentGame;
 
 
 
-    for(let j = 0; j < currentGame.aliens.length; j++){
+    for (let j = 0; j < currentGame.aliens.length; j++){
       for (let k = 0; k < currentGame.bullets.length; k++) {
+        
           if (bulletHit(currentGame.aliens[j],currentGame.bullets[k])){
-            console.log('collision');
               currentGame.aliens.splice(j,1);
               currentGame.bullets.splice(k,1);
-              //currentGame.score++;
-              //document.getElementById('score').innerHTML = currentGame.score;
-              //explosionSound.play();
+              
           }
+        }    
       }
-    }
+
+    for (let j = 0; j < currentGame.satellites.length; j++){
+      for (let k = 0; k < currentGame.bullets.length; k++) {
+        
+          if (bulletHit(currentGame.satellites[j],currentGame.bullets[k])){
+              currentGame.satellites.splice(j,1);
+              currentGame.bullets.splice(k,1);
+              
+          }
+        }    
+      }
+   
+/* 
+    for (let j = 0; j < currentGame.aliens.length; j++){
+      for (let k = 0; k < currentGame.bullets.length; k++) {
+        for (let i = 0; i < currentGame.satellites.length; i++) {
+          if (bulletHit(currentGame.aliens[j],currentGame.bullets[k], currentGame.satellites[i])){
+              currentGame.aliens.splice(j,1);
+              currentGame.bullets.splice(k,1);
+              currentGame.satellites.splice(i,1);
+          }
+        }    
+      }
+    } */
 
 
 
@@ -193,6 +234,7 @@ function onKeyUp(e){
 function shooting () {
   currentGame.bullets.push(new Bullet(currentGame.player.x , currentGame.player.y));
     shootSound.play();
+    
 }
   
 
