@@ -17,21 +17,35 @@
     <div id="score-div">
         <p>Score: <span id="score"> 0 </span></p>
     </div>
+    <!-- <div class='container'> -->
     <div id="space-board">
         <canvas id="canvas" width="500" height="600"></canvas>
     </div>
+
+    <div id="messages" >
+        <h1 id="level-up">Level Up!</h1>
+    </div>
+    
     <div class="game-intro">
         <img src="./images/space-invadors-logo.jpg" alt="" class="logo-img" />
-        <br />
+        <h1>WELCOME</h1>
         <button id="start-button">Start Game</button>
-        <p>Get rid of the aliens while avoiding our satellites!</p>
-        <img src="./images/arrow-keys.png" alt="" class="arrows-img" />
-        <p>Use the <b>SPACE</b> button to shoot them.</p>
-        <img src="./images/space-button.png" class="space-img">
-      </div>
-      <div id="bye-message" >
+    </div>
+
+    <div class ="game-start">
+        <div class="game-start-content">
+            <img src="./images/space-invadors-logo.jpg" alt="" class="logo-img" />
+            <button id="restart-button">RESTART</button>
+            <p>Get rid of the aliens while avoiding our satellites!</p>
+            <img src="./images/arrow-keys.png" alt="" class="arrows-img" />
+            <p>Use the <b>SPACE</b> button to shoot them.</p>
+            <img src="./images/space-button.png" class="space-img">
+        </div>
+     </div>
+      
+    <div id="bye-message" >
         <h1 id="game-over">GAME OVER</h1>
         <p id="game-over-score">FINAL SCORE<span id="score"> 0</p>
-      </div>
+     </div>
 </body>
 </html>

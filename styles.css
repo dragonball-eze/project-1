@@ -40,3 +40,39 @@ canvas {
     background-image: url(./images/space-board.png);
     background-size: cover;
 }
+
+
+
+#score-div p{
+  font-size: 15px;
+  text-shadow: grey;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  margin-left: 500px;
+  margin-right: 500px;
+
+  margin-top: 20px;
+  font-family: 'Press Start 2P', cursive;
+  color: black;
+  background-color:yellow;
+  padding: 10px;
+}
+
+#game-welcome h1{
+  position: absolute;
+  align-items: center;
+  color: yellow;
+  font-weight: 200;
+  font-size: 80px;
+  font-family: 'Press Start 2P', cursive;
+  }
+
+.game-start-content {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  
+  
+}

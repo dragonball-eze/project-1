@@ -3,23 +3,34 @@ const context = canvas.getContext("2d");
 const width =canvas.width;const height=canvas.height;
 let leftkey=rightkey=false;
 document.getElementById("space-board").style.display="none";//to make the game invisible at first
+document.querySelector(".game-start").style.display = "none";
 document.getElementById('game-over').style.display = 'none';
 document.getElementById('game-over-score').style.display = 'none';
 
+
+
 document.getElementById('start-button').onclick = () => {
   document.getElementById("space-board").style.display="block";// to make the board appear
+  document.querySelector(".game-intro").style.display = "none";
+  document.querySelector(".game-start").style.display = "block";
   canvas.focus();
     startGame();
   };
+
+  document.getElementById("restart-button").onclick = () => {
+    restartGame();
+    //shotsFrequency % 20 === 1;
+}
+
 
 let currentGame;
 
   //Sounds
   const shootSound = new Audio ()
-  shootSound.src = "../sounds_Shoot.mp3";
+  shootSound.src = "../Sounds/sounds_Shoot.mp3";
 
   const gameIntroSound = new Audio ()
-  gameIntroSound.src = "../sounds_intro.mp3";
+  gameIntroSound.src = "../Sounds/sounds_intro.mp3";
 
    //Bullet impact
    function bulletHit(alien, bullet) {
@@ -42,10 +53,44 @@ let currentGame;
     
   }
 
+
+  function restartGame() {
+    console.log('restarting the game');
+   this.player = {};
+   this.bullets = [];
+   this.satellites = [];
+   this.aliens = [];
+   document.getElementById("score").innerHTML = 0;
+   context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+   currentGame = new Game();
+   currentGame.player = new Player();
+   currentGame.player.drawPlayer();
+   const bullet = new Bullet();
+}
+
+/*function resetGame () {
+    this.player = {};
+    this.bullets = [];
+    this.satellites = [];
+    this.aliens = [];
+    this.score = 0;;
+    gameOverSound.play();
+    document.getElementById('game-board').style.display = 'inline';
+    document.getElementById('score').innerHTML = currentGame.score;
+    document.getElementById('score').style.display = 'none';
+    document.getElementById('game-over-score').innerHTML = `FINAL SCORE: ${currentGame.score}`;
+    document.getElementById('game-over').style.display = 'inline';
+    document.getElementById('game-over-score').style.display = 'inline';
+    document.getElementById("start-button").style.display = "inline";
+    document.getElementById("restart-button").style.display = "none";
+    document.getElementById("speed-button").style.display = "none";
+} */
+
+
   // Satellites
   function drawSatellite() {
     currentGame.satellitesFrequency++;
-    if (currentGame.satellitesFrequency % 200 === 1) {
+    if (currentGame.satellitesFrequency % 400 === 1) {
       const randomSatelliteX = Math.floor(Math.random() * 450);
       const randomSatelliteY = 0;
       
@@ -92,7 +137,7 @@ let currentGame;
   // Aliens
   function drawAlien() {
     currentGame.aliensFrequency++;
-    if (currentGame.aliensFrequency % 100 === 1) {
+    if (currentGame.aliensFrequency % 200 === 1) {
       const randomAlienX = Math.floor(Math.random() * 450);
       const randomAlienY = 0;
   
@@ -198,7 +243,16 @@ function onKeyUp(e){
 function shooting () {
   currentGame.bullets.push(new Bullet(currentGame.player.x , currentGame.player.y));
     shootSound.play();
+    
 }
+
+
+
+const incrementTimer = setInterval(shooting, 1000);
+
+ setInterval(() => {
+  clearInterval(incrementTimer);
+}, 1000)
   
 
 
