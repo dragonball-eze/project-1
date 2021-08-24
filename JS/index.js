@@ -17,11 +17,9 @@ let currentGame;
   const shootSound = new Audio ()
   shootSound.src = "../sounds_Shoot.mp3";
 
-<<<<<<< HEAD
   const gameIntroSound = new Audio ()
   gameIntroSound.src = "../sounds_intro.mp3";
 
-=======
    //Bullet impact
    function bulletHit(alien, bullet) {
 
@@ -30,7 +28,6 @@ let currentGame;
     bullet.y > alien.y + alien.height ||
     bullet.y + bullet.height < alien.y)
   }
->>>>>>> 225a4e035972809378dc1816b408fcb74c89cfc8
 
   function startGame() {
     gameIntroSound.play();
@@ -150,8 +147,8 @@ let currentGame;
             console.log('collision');
               currentGame.aliens.splice(j,1);
               currentGame.bullets.splice(k,1);
-              //currentGame.score++;
-              //document.getElementById('score').innerHTML = currentGame.score;
+              currentGame.score++;
+              document.getElementById('score').innerHTML = currentGame.score;
               //explosionSound.play();
           }
       }
