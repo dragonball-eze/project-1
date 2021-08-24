@@ -58,7 +58,7 @@ canvas {
   padding: 10px;
 }
 
-#game-welcome h1{
+#game-intro h1{
   position: absolute;
   align-items: center;
   color: yellow;
@@ -73,4 +73,13 @@ canvas {
   justify-content: center;
   align-items: center;
   align-content: center;
+  
+  
+}
+
+#bye-message h1{
+  color: yellow;
+  font-weight: 200;
+  font-size: 80px;
+  font-family: 'Press Start 2P', cursive;
 }

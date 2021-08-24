@@ -4,8 +4,10 @@ const width =canvas.width;const height=canvas.height;
 let leftkey=rightkey=false;
 document.getElementById("space-board").style.display="none";//to make the game invisible at first
 document.querySelector(".game-start").style.display = "none";
-document.getElementById('game-over').style.display = 'none';
-document.getElementById('game-over-score').style.display = 'none';
+document.getElementById('bye-message').style.display = 'none';
+document.getElementById('score-div').style.display = "none";
+
+
 
 
 
@@ -13,13 +15,13 @@ document.getElementById('start-button').onclick = () => {
   document.getElementById("space-board").style.display="block";// to make the board appear
   document.querySelector(".game-intro").style.display = "none";
   document.querySelector(".game-start").style.display = "block";
+  document.getElementById('score-div').style.display = "block";
   canvas.focus();
     startGame();
   };
 
   document.getElementById("restart-button").onclick = () => {
-    restartGame();
-    //shotsFrequency % 20 === 1;
+    restartGame();   
 }
 
 
@@ -32,6 +34,9 @@ let currentGame;
   const gameIntroSound = new Audio ()
   gameIntroSound.src = "../Sounds/sounds_intro.mp3";
 
+  const gameOverSound = new Audio;
+  gameOverSound.src = "../Sounds/sounds_gameover.mp3"
+
    //Bullet impact
    function bulletHit(alien, bullet) {
     if (bullet && alien){
@@ -43,20 +48,7 @@ let currentGame;
     
   }
 
-
-/*   function bulletHit(alien, bullet, satellite) {
-
-    return !(bullet.x > alien.x + alien.width ||
-    bullet.x < alien.x ||
-    bullet.y > alien.y + alien.height ||
-    bullet.y + bullet.height < alien.y ||
-    bullet.x > satellite.x + satellite.width ||
-    bullet.x < satellite.x ||
-    bullet.y > satellite.y + satellite.height ||
-    bullet.y + bullet.height < alien.y)
-  } */
-
-  function startGame() {
+   function startGame() {
     gameIntroSound.play();
     currentGame = new Game();
     currentGame.player = new Player();
@@ -65,12 +57,12 @@ let currentGame;
     bullet.drawBullet();
     cancelAnimationFrame(currentGame.animationId);
     updateCanvas();
-    
+    console.log("works")
   }
 
 
   function restartGame() {
-    console.log('restarting the game');
+  console.log('restarting the game');
    this.player = {};
    this.bullets = [];
    this.satellites = [];
@@ -81,25 +73,19 @@ let currentGame;
    currentGame.player = new Player();
    currentGame.player.drawPlayer();
    const bullet = new Bullet();
-}
+  }
 
-/*function resetGame () {
-    this.player = {};
-    this.bullets = [];
-    this.satellites = [];
-    this.aliens = [];
-    this.score = 0;;
+   
+   
+
+
+function gameOver() {
     gameOverSound.play();
-    document.getElementById('game-board').style.display = 'inline';
-    document.getElementById('score').innerHTML = currentGame.score;
-    document.getElementById('score').style.display = 'none';
     document.getElementById('game-over-score').innerHTML = `FINAL SCORE: ${currentGame.score}`;
-    document.getElementById('game-over').style.display = 'inline';
-    document.getElementById('game-over-score').style.display = 'inline';
-    document.getElementById("start-button").style.display = "inline";
-    document.getElementById("restart-button").style.display = "none";
-    document.getElementById("speed-button").style.display = "none";
-} */
+    document.querySelector(".game-start").style.display = "none";
+    document.getElementById('score-div').style.display = "none";
+    document.getElementById('bye-message').style.display = 'block';
+  } 
 
 
   // Satellites
@@ -123,7 +109,7 @@ let currentGame;
       satellite.y += 1;
       satellite.draw();
 
-      //Satellite collusion
+      //Satellite collision
       function detectCollision(satellite) {
         return !(
           currentGame.player.moveLeft() > satellite.right() ||
@@ -143,6 +129,7 @@ let currentGame;
         document.getElementById("space-board").style.display = "none";
         cancelAnimationFrame(currentGame.animationId);
         alert("Ouch! You crashed on a satellite!");
+        gameOver();
       }
 
       if (satellite.y > canvas.clientHeight) {
@@ -190,6 +177,7 @@ let currentGame;
         document.getElementById("space-board").style.display = "none";
         cancelAnimationFrame(currentGame.animationId);
         alert("Damn! They got you first!");
+        gameOver()
       }
 
 
@@ -253,18 +241,7 @@ let currentGame;
         }    
       }
    
-/* 
-    for (let j = 0; j < currentGame.aliens.length; j++){
-      for (let k = 0; k < currentGame.bullets.length; k++) {
-        for (let i = 0; i < currentGame.satellites.length; i++) {
-          if (bulletHit(currentGame.aliens[j],currentGame.bullets[k], currentGame.satellites[i])){
-              currentGame.aliens.splice(j,1);
-              currentGame.bullets.splice(k,1);
-              currentGame.satellites.splice(i,1);
-          }
-        }    
-      }
-    } */
+
 
 
 
@@ -277,24 +254,7 @@ let currentGame;
 
 
 
-/*function onKeyDown(e){
-     //space
-      if(keycode==32){
-        game.shooting()
-    }
-}
 
-function onKeyUp(e){
-    let keycode=e.keyCode;
-    //left
-    if(keycode==37){
-        leftkey=false;
-    }
-    //right
-    if(keycode==39){
-        rightkey=false;
-    }
-}*/
 
 
 function shooting () {
