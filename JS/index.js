@@ -7,6 +7,7 @@ document.getElementById("space-board").style.display="none";//to make the game i
 
   document.getElementById('start-button').onclick = () => {
   document.getElementById("space-board").style.display="block";// to make the board appear
+  canvas.focus();
     startGame();
   };
 
@@ -76,6 +77,10 @@ let currentGame;
         cancelAnimationFrame(currentGame.animationId);
         alert("Ouch! You crashed on a satellite!");
       }
+
+      if (satellite.y > canvas.clientHeight) {
+        currentGame.satellites.splice(index, 1);
+      }
     });
 
   }
@@ -116,6 +121,11 @@ let currentGame;
         document.getElementById("space-board").style.display = "none";
         cancelAnimationFrame(currentGame.animationId);
         alert("Damn! They got you first!");
+      }
+
+
+      if (alien.y > canvas.clientHeight) {
+        currentGame.aliens.splice(index, 1);
       }
     });
 
