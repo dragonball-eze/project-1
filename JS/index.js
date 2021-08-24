@@ -171,7 +171,7 @@ let currentGame;
       alien.draw();
       
       //Alien collision
-      function detectCollision(alien) { // TO CHECK
+      function detectCollision(alien) {
         return !(
           currentGame.player.moveLeft() > alien.right() ||
           currentGame.player.moveRight() < alien.left() ||
@@ -196,6 +196,20 @@ let currentGame;
       if (alien.y > canvas.clientHeight) {
         currentGame.aliens.splice(index, 1);
       }
+
+      //Alien invading Earth (passing the player)
+      
+      
+      /* function invasionAlien(alien) {
+        if (alien[j].bottom = canvas.clientHeight) {
+          cancelAnimationFrame(currentGame.animationId);
+          alert("Aliens managed to invade us!");
+        }
+      }
+
+      invasionAlien(); */
+
+      
     });
 
   }
