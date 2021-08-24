@@ -20,8 +20,16 @@ document.getElementById('start-button').onclick = () => {
     startGame();
   };
 
+  document.getElementById("restart-button-game-over").onclick = () => {
+    document.getElementById("bye-message").style.display="none";
+    document.getElementById("space-board").style.display="block";
+    document.querySelector(".game-start").style.display = "block";
+    document.getElementById('score-div').style.display = "block";
+    startGame();   
+}
   document.getElementById("restart-button").onclick = () => {
-    restartGame();   
+   
+    restartTheGame();   
 }
 
 
@@ -57,13 +65,14 @@ let currentGame;
     bullet.drawBullet();
     cancelAnimationFrame(currentGame.animationId);
     updateCanvas();
+     document.getElementById("score").innerHTML = currentGame.score
     console.log("works")
   }
 
 
-  function restartGame() {
+  function restartTheGame() {
   console.log('restarting the game');
-   this.player = {};
+    this.player = {};
    this.bullets = [];
    this.satellites = [];
    this.aliens = [];
@@ -74,9 +83,6 @@ let currentGame;
    currentGame.player.drawPlayer();
    const bullet = new Bullet();
   }
-
-   
-   
 
 
 function gameOver() {
@@ -119,11 +125,9 @@ function gameOver() {
       }
 
       if (detectCollision(satellite)) {
-        console.log(currentGame.player);
-        console.log(satellite);
         currentGame.gameOver = true;
         currentGame.satellitesFrequency = 0;
-        currentGame.score = 0;
+        /* currentGame.score = 0; */
         currentGame.satellites = [];
         //document.getElementById("score").innerText = 0;
         document.getElementById("space-board").style.display = "none";
@@ -183,19 +187,16 @@ function gameOver() {
 
       if (alien.y > canvas.clientHeight) {
         currentGame.aliens.splice(index, 1);
+        currentGame.gameOver = true;
+        currentGame.aliensFrequency = 0;
+        //currentGame.score = 0;
+        currentGame.aliens = [];
+        //document.getElementById("score").innerText = 0;
+        document.getElementById("space-board").style.display = "none";
+        cancelAnimationFrame(currentGame.animationId);
+        alert("Damn! They got you first!");
+        gameOver()
       }
-
-      //Alien invading Earth (passing the player)
-      
-      
-      /* function invasionAlien(alien) {
-        if (alien[j].bottom = canvas.clientHeight) {
-          cancelAnimationFrame(currentGame.animationId);
-          alert("Aliens managed to invade us!");
-        }
-      }
-
-      invasionAlien(); */
 
       
     });
