@@ -120,11 +120,14 @@ function gameOver() {
         return !(
           currentGame.player.moveLeft() > satellite.right() ||
           currentGame.player.moveRight() < satellite.left() ||
-          currentGame.player.moveTop() > satellite.bottom()
+          currentGame.player.moveTop() > satellite.bottom() ||
+          currentGame.player.moveDown() < satellite.top() 
         );
       }
 
       if (detectCollision(satellite)) {
+        console.log(satellite);
+        console.log(currentGame.player);
         currentGame.gameOver = true;
         currentGame.satellitesFrequency = 0;
         /* currentGame.score = 0; */
@@ -264,6 +267,10 @@ function shooting () {
   currentGame.bullets.push(new Bullet(currentGame.player.x , currentGame.player.y));
     shootSound.play();
     
+}
+
+function frequency () {
+
 }
 
 
