@@ -194,7 +194,7 @@ function gameOver() {
         //document.getElementById("score").innerText = 0;
         document.getElementById("space-board").style.display = "none";
         cancelAnimationFrame(currentGame.animationId);
-        alert("Damn! They got you first!");
+        alert("An alien passed you... It's the beginning of the end for us!");
         gameOver()
       }
 
@@ -237,6 +237,8 @@ function gameOver() {
           if (bulletHit(currentGame.satellites[j],currentGame.bullets[k])){
               currentGame.satellites.splice(j,1);
               currentGame.bullets.splice(k,1);
+              currentGame.score-=5;
+              document.getElementById('score').innerHTML = currentGame.score;
               
           }
         }    
