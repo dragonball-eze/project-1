@@ -77,11 +77,29 @@ canvas {
   
 }
 
-
-
 #bye-message h1{
   color: yellow;
   font-weight: 200;
   font-size: 80px;
   font-family: 'Press Start 2P', cursive;
+}
+
+#messages {
+  display: flex;
+  align-items: stretch;
+  padding-left: 80%;
+  padding-right: 50%;
+}
+
+#messages h1{
+  font-size: 30px;
+  text-shadow: grey;
+  margin-top: -200px;
+  margin-left: -240px;
+  font-family: 'Press Start 2P', cursive;
+  color: yellow;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
 }

@@ -11,7 +11,7 @@
     <script type="text/javascript" src="JS/player.js" defer></script>
     <script type="text/javascript" src="JS/satellites.js" defer></script>
     <script type="text/javascript" src="JS/aliens.js" defer></script>
-
+    <script type="text/javascript" src="JS/level3.js" defer></script>
 </head>
 <body>
     <div id="score-div">
@@ -21,11 +21,12 @@
     <!-- <div class='container'> -->
     <div id="space-board">
         <canvas id="canvas" width="500" height="600"></canvas>
-    </div>
+        <div id="messages" >
+            <h1 id="level-up">Level Up!</h1>
+        </div>
+     </div>
 
-    <div id="messages" >
-        <h1 id="level-up">Level Up!</h1>
-    </div>
+   
     
     <div class="game-intro">
         <img src="./images/space-invadors-logo.jpg" alt="" class="logo-img" />
@@ -48,7 +49,7 @@
         <!-- <div id="bye-message-content"> -->
         <p id="game-over-score">FINAL SCORE<span id="score"> 0</p>
         <h1 id="game-over">GAME OVER</h1>
-        <button id="start-button">Start Game</button>
+        <button id="restart-button-game-over">Start Again</button>
      </div>
 </body>
 </html>

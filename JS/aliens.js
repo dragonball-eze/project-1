@@ -10,5 +10,4 @@ class Alien extends Obstacle {
         context.strokeStyle = "green";
         context.strokeRect(this.x, this.y, this.width, this.height);
       }
-    
     }

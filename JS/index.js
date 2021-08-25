@@ -1,11 +1,14 @@
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 const width =canvas.width;const height=canvas.height;
-let leftkey=rightkey=false;
+let frequencyMod
+let changeLevel = false 
+let right;
 document.getElementById("space-board").style.display="none";//to make the game invisible at first
 document.querySelector(".game-start").style.display = "none";
 document.getElementById('bye-message').style.display = 'none';
 document.getElementById('score-div').style.display = "none";
+document.getElementById('messages').style.display = 'none';
 
 
 
@@ -20,8 +23,16 @@ document.getElementById('start-button').onclick = () => {
     startGame();
   };
 
+  document.getElementById("restart-button-game-over").onclick = () => {
+    document.getElementById("bye-message").style.display="none";
+    document.getElementById("space-board").style.display="block";
+    document.querySelector(".game-start").style.display = "block";
+    document.getElementById('score-div').style.display = "block";
+    startGame();   
+}
   document.getElementById("restart-button").onclick = () => {
-    restartGame();   
+   
+    restartTheGame();   
 }
 
 
@@ -37,7 +48,13 @@ let currentGame;
   const gameOverSound = new Audio;
   gameOverSound.src = "../Sounds/sounds_gameover.mp3"
 
-   //Bullet impact
+
+  const levelUpSound = new Audio ()
+  levelUpSound.src = "../sounds/sounds_levelUp.mp3";
+  
+  
+  
+  //Bullet impact
    function bulletHit(alien, bullet) {
     if (bullet && alien){
       return !(bullet.x > alien.x + alien.width ||
@@ -51,22 +68,26 @@ let currentGame;
    function startGame() {
     gameIntroSound.play();
     currentGame = new Game();
+    currentGame.boss = new Boss(/*canvas.clientWidth / 2 - 40, -90*/);
     currentGame.player = new Player();
     currentGame.player.drawPlayer();
     const bullet = new Bullet();
     bullet.drawBullet();
     cancelAnimationFrame(currentGame.animationId);
     updateCanvas();
+    document.getElementById("score").innerHTML = currentGame.score
     console.log("works")
+    //currentGame.boss.draw()
   }
 
 
-  function restartGame() {
+  function restartTheGame() {
   console.log('restarting the game');
    this.player = {};
    this.bullets = [];
    this.satellites = [];
    this.aliens = [];
+   this.score = 0;
    document.getElementById("score").innerHTML = 0;
    context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
    currentGame = new Game();
@@ -74,9 +95,6 @@ let currentGame;
    currentGame.player.drawPlayer();
    const bullet = new Bullet();
   }
-
-   
-   
 
 
 function gameOver() {
@@ -91,7 +109,7 @@ function gameOver() {
   // Satellites
   function drawSatellite() {
     currentGame.satellitesFrequency++;
-    if (currentGame.satellitesFrequency % 400 === 1) {
+    if (currentGame.satellitesFrequency % frequencyMod === 1) {
       const randomSatelliteX = Math.floor(Math.random() * 450);
       const randomSatelliteY = 0;
       
@@ -119,11 +137,9 @@ function gameOver() {
       }
 
       if (detectCollision(satellite)) {
-        console.log(currentGame.player);
-        console.log(satellite);
         currentGame.gameOver = true;
         currentGame.satellitesFrequency = 0;
-        currentGame.score = 0;
+        /* currentGame.score = 0; */
         currentGame.satellites = [];
         //document.getElementById("score").innerText = 0;
         document.getElementById("space-board").style.display = "none";
@@ -141,7 +157,7 @@ function gameOver() {
   // Aliens
   function drawAlien() {
     currentGame.aliensFrequency++;
-    if (currentGame.aliensFrequency % 200 === 1) {
+    if (currentGame.aliensFrequency % (frequencyMod - 200) === 1) {
       const randomAlienX = Math.floor(Math.random() * 450);
       const randomAlienY = 0;
   
@@ -158,7 +174,7 @@ function gameOver() {
       alien.draw();
       
       //Alien collision
-      function detectCollision(alien) { // TO CHECK
+      function detectCollision(alien) {
         return !(
           currentGame.player.moveLeft() > alien.right() ||
           currentGame.player.moveRight() < alien.left() ||
@@ -183,15 +199,54 @@ function gameOver() {
 
       if (alien.y > canvas.clientHeight) {
         currentGame.aliens.splice(index, 1);
+        currentGame.gameOver = true;
+        currentGame.aliensFrequency = 0;
+        //currentGame.score = 0;
+        currentGame.aliens = [];
+        //document.getElementById("score").innerText = 0;
+        document.getElementById("space-board").style.display = "none";
+        cancelAnimationFrame(currentGame.animationId);
+        //alert("Damn! They got you first!");
+        gameOver()
       }
+
+      
     });
 
+  }
+
+function brah() {
+  for (let j = 0; j < currentGame.aliens.length; j++){
+    for (let k = 0; k < currentGame.bullets.length; k++) {
+      
+        if (bulletHit(currentGame.aliens[j],currentGame.bullets[k])){
+            currentGame.aliens.splice(j,1);
+            currentGame.bullets.splice(k,1);
+            currentGame.score++;
+            document.getElementById('score').innerHTML = currentGame.score;
+            //explosionSound.play();
+        }
+      }    
+    }
+
+  for (let j = 0; j < currentGame.satellites.length; j++){
+    for (let k = 0; k < currentGame.bullets.length; k++) {
+      
+        if (bulletHit(currentGame.satellites[j],currentGame.bullets[k])){
+            currentGame.satellites.splice(j,1);
+            currentGame.bullets.splice(k,1);
+            
+        }
+      }    
+    }
   }
 
  
   function updateCanvas() {
     context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight)
     currentGame.player.drawPlayer();
+    changeLevels();
+    //currentGame.boss.draw();
     //drawBullets();
     currentGame.bullets.forEach(bullet => {
       bullet.y -= 3;
@@ -200,37 +255,9 @@ function gameOver() {
 
     drawSatellite();
     drawAlien();
-
-
-
-    for (let j = 0; j < currentGame.aliens.length; j++){
-      for (let k = 0; k < currentGame.bullets.length; k++) {
-        
-          if (bulletHit(currentGame.aliens[j],currentGame.bullets[k])){
-              currentGame.aliens.splice(j,1);
-              currentGame.bullets.splice(k,1);
-              currentGame.score++;
-              document.getElementById('score').innerHTML = currentGame.score;
-              //explosionSound.play();
-          }
-        }    
-      }
-
-    for (let j = 0; j < currentGame.satellites.length; j++){
-      for (let k = 0; k < currentGame.bullets.length; k++) {
-        
-          if (bulletHit(currentGame.satellites[j],currentGame.bullets[k])){
-              currentGame.satellites.splice(j,1);
-              currentGame.bullets.splice(k,1);
-              
-          }
-        }    
-      }
-   
-
-
-
-
+    brah();
+    
+    
     if (currentGame.gameOver === false) {
       currentGame.animationId = requestAnimationFrame(updateCanvas);
     }
@@ -243,13 +270,15 @@ function gameOver() {
 
 
 
+
+
 function shooting () {
   currentGame.bullets.push(new Bullet(currentGame.player.x , currentGame.player.y));
     shootSound.play();
     
 }
 
-
+//intervalforshotsattempt
 
 const incrementTimer = setInterval(shooting, 1000);
 
@@ -266,5 +295,47 @@ document.addEventListener("keydown", (e) => {
     currentGame.player.movePlayer(e.key);
   }
 )
+
+// function clearMessages () {
+//   document.getElementById('messages').style.display = 'none';
+// }
+
+
+
+function changeLevels() {
+  document.getElementById('messages').style.display = 'none';
+
+  if (currentGame.score >= 10 && currentGame.score <11 || currentGame.score >= 13 && currentGame.score < 14) {
+    document.getElementById('messages').style.display = 'block';
+    levelUpSound.play()
+  }
+
+  if (currentGame.score <10) {
+      
+      frequencyMod = 400;
+      currentGame.level = 1;
+
+  } else if (currentGame.score >= 10 && currentGame.score < 13) { 
+     
+      frequencyMod = 360;
+      currentGame.level = 2;
+  } else if (currentGame.score >= 13 && currentGame.score < 15) {
+      
+      frequencyMod = 320;
+      currentGame.level = 3;
+     
+  }
+    else {
+    
+        //document.getElementById('messages').style.display = 'block';
+        //setTimeout(clearMessages, 5000);
+        //levelUpSound.play()
+        //currentGame.bossStage = true;
+        currentGame.boss.move();
+        currentGame.boss.draw();
+        frequencyMod = Infinity;
+       } 
+      
+  } 
 
 
