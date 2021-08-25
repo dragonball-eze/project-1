@@ -29,7 +29,7 @@ class Player {
           }
           break;
 
-        /*case "ArrowDown":
+        case "ArrowDown":
           if (this.y < canvas.clientHeight - this.height) {
             this.y += 10;
           } 
@@ -41,7 +41,7 @@ class Player {
 
           }
           
-          break; */
+          break;
       }
     }
 
