@@ -51,6 +51,9 @@ let currentGame;
 
   const levelUpSound = new Audio ()
   levelUpSound.src = "../sounds/sounds_levelUp.mp3";
+
+  const explosionSound = new Audio ()
+  explosionSound.src = "../sounds/sounds_siclone_explosion.wav";
   
   
   
@@ -227,7 +230,7 @@ function brah() {
             currentGame.bullets.splice(k,1);
             currentGame.score++;
             document.getElementById('score').innerHTML = currentGame.score;
-            //explosionSound.play();
+            
         }
       }    
     }
@@ -238,6 +241,7 @@ function brah() {
         if (bulletHit(currentGame.satellites[j],currentGame.bullets[k])){
             currentGame.satellites.splice(j,1);
             currentGame.bullets.splice(k,1);
+            explosionSound.play();
             
         }
       }    

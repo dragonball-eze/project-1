@@ -76,4 +76,13 @@ class Boss {
 
 
 
+  /*if (
+      bullet.top() < currentGame.boss.bottom() &&
+      bullet.right() > currentGame.boss.left() &&
+      bullet.left() < currentGame.boss.right()
+  ) {
+      currentGame.boss.health -= 1;
+      currentGame.bullet.splice(indexShot, 1);
+      console.log(currentGame.boss.health); //
 
+  }*/
