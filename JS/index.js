@@ -201,16 +201,14 @@ function gameOver() {
       }
 
 
-      if (alien.y > canvas.clientHeight) {
+      if (alien.y > canvas.clientWidth) {
         currentGame.aliens.splice(index, 1);
         currentGame.gameOver = true;
         currentGame.aliensFrequency = 0;
-        //currentGame.score = 0;
         currentGame.aliens = [];
-        //document.getElementById("score").innerText = 0;
         document.getElementById("space-board").style.display = "none";
         cancelAnimationFrame(currentGame.animationId);
-        alert("An alien passed you... It's the beginning of the end for us!");
+        alert("Missing failed: an alien is invading Earth... So long!");
         gameOver()
       }
 
@@ -228,7 +226,6 @@ function brah() {
             currentGame.bullets.splice(k,1);
             currentGame.score++;
             document.getElementById('score').innerHTML = currentGame.score;
-            //explosionSound.play();
         }
       }    
     }
