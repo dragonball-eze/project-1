@@ -184,7 +184,8 @@ function gameOver() {
         return !(
           currentGame.player.moveLeft() > alien.right() ||
           currentGame.player.moveRight() < alien.left() ||
-          currentGame.player.moveTop() > alien.bottom()
+          currentGame.player.moveTop() > alien.bottom() ||
+          currentGame.player.moveDown() < alien.top() 
         );
       }
 
