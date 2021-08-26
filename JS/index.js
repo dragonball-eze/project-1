@@ -238,6 +238,12 @@ function brah() {
         }
       }    
     }
+  /*   for (let j = 0; j < currentGame.bossShots.length; j++){
+        
+          if (bulletHit(currentGame.satellites[j],currentGame.bullets[k])){
+              currentGame.satellites.splice(j,1);
+              currentGame.bullets.splice(k,1); */
+
   }
 
  
@@ -303,16 +309,16 @@ function changeLevels() {
     levelUpSound.play()
   }
 
-  if (currentGame.score <1) {
+  if (currentGame.score <10) {
       
       frequencyMod = 400;
       currentGame.level = 1;
 
-  } else if (currentGame.score >= 2 && currentGame.score < 2) { 
+  } else if (currentGame.score >= 10 && currentGame.score < 20) { 
      
       frequencyMod = 300;
       currentGame.level = 2;
-  } else if (currentGame.score >= 3 && currentGame.score < 4) {
+  } else if (currentGame.score >= 20 && currentGame.score < 30) {
       
       frequencyMod = 250;
       currentGame.level = 3;
@@ -348,7 +354,18 @@ currentGame.bossShots.forEach(((shot, index) => {
   shot.draw();
   console.log(shot)
 }))
-  }}
+  }
+}
+
+//Boss shot impact
+function bossShotHit(player, shot) {
+  if (shot && player){
+    return !(shot.x > player.x + player.width ||
+      shot.x < player.x ||
+      shot.y > player.y + player.height ||
+      shot.y + shot.height < player.y)
+  }
+}
 
 
 
