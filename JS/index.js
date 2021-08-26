@@ -298,23 +298,23 @@ function changeLevels() {
   console.log(currentGame.bossStage)
   document.getElementById('messages').style.display = 'none';
 
-  if (currentGame.score >= 10 && currentGame.score <20 || currentGame.score >= 20 && currentGame.score < 30) {
+  if (currentGame.score >= 10 && currentGame.score < 11|| currentGame.score >= 21 && currentGame.score < 22) {
     document.getElementById('messages').style.display = 'block';
     levelUpSound.play()
   }
 
-  if (currentGame.score <1) {
+  if (currentGame.score < 10) {
       
-      frequencyMod = 400;
+      frequencyMod = 380;
       currentGame.level = 1;
 
-  } else if (currentGame.score >= 2 && currentGame.score < 2) { 
+  } else if (currentGame.score >= 10 && currentGame.score < 20) { 
      
-      frequencyMod = 300;
+      frequencyMod = 320;
       currentGame.level = 2;
-  } else if (currentGame.score >= 3 && currentGame.score < 4) {
+  } else if (currentGame.score >= 20 && currentGame.score < 30) {
       
-      frequencyMod = 250;
+      frequencyMod = 260;
       currentGame.level = 3;
      
   }
@@ -326,7 +326,7 @@ function changeLevels() {
         currentGame.bossStage = true;
         currentGame.boss.move();
         currentGame.boss.draw();
-        //frequencyMod = 999999999999;
+        frequencyMod = Infinity;
        } 
       
   } 
@@ -335,9 +335,7 @@ function changeLevels() {
   function bossShots () {
 
   if (currentGame.bossStage === true) {
-      //
-      
-      if (currentGame.aliensFrequency % (frequencyMod - 200) === 1) {
+      if (currentGame.aliensFrequency % 75 === 1) {
              const newBossShot = new BossShot(currentGame.boss.x + 45, (currentGame.boss.y + currentGame.boss.height), 10, 8,);
              currentGame.bossShots.push(newBossShot); 
           
