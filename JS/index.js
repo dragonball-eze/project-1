@@ -287,7 +287,7 @@ document.addEventListener("keydown", (e) => {
 function changeLevels() {
   document.getElementById('messages').style.display = 'none';
 
-  if (currentGame.score >= 10 && currentGame.score <11 || currentGame.score >= 13 && currentGame.score < 14) {
+  if (currentGame.score >= 10 && currentGame.score <20 || currentGame.score >= 20 && currentGame.score < 30) {
     document.getElementById('messages').style.display = 'block';
     levelUpSound.play()
   }
