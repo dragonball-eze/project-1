@@ -11,9 +11,6 @@ document.getElementById('score-div').style.display = "none";
 document.getElementById('messages').style.display = 'none';
 
 
-
-
-
 document.getElementById('start-button').onclick = () => {
   document.getElementById("space-board").style.display="block";// to make the board appear
   document.querySelector(".game-intro").style.display = "none";
@@ -53,7 +50,6 @@ let currentGame;
   levelUpSound.src = "../sounds/sounds_levelUp.mp3";
   
   
-  
   //Bullet impact
    function bulletHit(alien, bullet) {
     if (bullet && alien){
@@ -76,13 +72,10 @@ let currentGame;
     cancelAnimationFrame(currentGame.animationId);
     updateCanvas();
     document.getElementById("score").innerHTML = currentGame.score
-    console.log("works")
-    //currentGame.boss.draw()
   }
 
 
   function restartTheGame() {
-  console.log('restarting the game');
    this.player = {};
    this.bullets = [];
    this.satellites = [];
@@ -103,6 +96,7 @@ function gameOver() {
     document.querySelector(".game-start").style.display = "none";
     document.getElementById('score-div').style.display = "none";
     document.getElementById('bye-message').style.display = 'block';
+    cancelAnimationFrame(currentGame.animationId);
   } 
 
 
@@ -139,13 +133,9 @@ function gameOver() {
 
       if (detectCollision(satellite)) {
         gameOver();
-        console.log(satellite);
-        console.log(currentGame.player);
         currentGame.gameOver = true;
-        currentGame.satellitesFrequency = 0;
-        /* currentGame.score = 0; */
+        currentGame.satellitesFrequency = 0
         currentGame.satellites = [];
-        //document.getElementById("score").innerText = 0;
         document.getElementById("space-board").style.display = "none";
         cancelAnimationFrame(currentGame.animationId);
         alert("Ouch! You crashed on a satellite!");
@@ -160,8 +150,6 @@ function gameOver() {
   }
   // Aliens
   function drawAlien() {
-  
-
    
     currentGame.aliensFrequency++;
     if (currentGame.aliensFrequency % (frequencyMod - 200) === 1) {
@@ -194,7 +182,7 @@ function gameOver() {
         );
       }
 
-      if (alien.y > canvas.clientWidth) {
+      if (alien.y > canvas.clientHeight && currentGame.gameOver === false) {
               currentGame.aliens.splice(index, 1);
               currentGame.gameOver = true;
               currentGame.aliensFrequency = 0;
@@ -204,30 +192,19 @@ function gameOver() {
               alert("Mission failed: an alien is invading Earth... So long!");
               gameOver()
             }
-
-
-            
+   
       if (detectCollision(alien)) {
-        console.log(alien);
-        console.log(currentGame.player);
         currentGame.gameOver = true;
         currentGame.aliensFrequency = 0;
-        //currentGame.score = 0;
         currentGame.aliens = [];
-        //document.getElementById("score").innerText = 0;
         document.getElementById("space-board").style.display = "none";
         cancelAnimationFrame(currentGame.animationId);
         alert("Damn! They got you first!");
         gameOver()
       }
 
-
-      
-
       
     });
-
-
     
   }
 
@@ -277,15 +254,7 @@ function brah() {
       currentGame.animationId = requestAnimationFrame(updateCanvas);
     }
 
-
   }
-
-
-
-
-
-
-
 
 function shooting () {
   currentGame.bullets.push(new Bullet(currentGame.player.x , currentGame.player.y));
@@ -314,8 +283,6 @@ document.addEventListener("keydown", (e) => {
 // function clearMessages () {
 //   document.getElementById('messages').style.display = 'none';
 // }
-
-
 
 function changeLevels() {
   document.getElementById('messages').style.display = 'none';
@@ -352,5 +319,3 @@ function changeLevels() {
        } 
       
   } 
-
-
