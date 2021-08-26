@@ -86,6 +86,8 @@ class Boss {
       draw() {
           const bossShot = new Image();
           bossShot.src = "/images/coin.png"
+          this.image = bossShot
+          context.drawImage(this.image, this.x, this.y, 25, 25);
       }  
       
   }
