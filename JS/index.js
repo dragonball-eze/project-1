@@ -2,8 +2,12 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 const width =canvas.width;const height=canvas.height;
 let frequencyMod;
+let highScoreValue = 0
 let changeLevel = false ;
 let right;
+let highScore = document.querySelector('#high-score');
+highScore.innerText = highScoreValue;
+
 document.getElementById("space-board").style.display="none";//to make the game invisible at first
 document.querySelector(".game-start").style.display = "none";
 document.getElementById('bye-message').style.display = 'none';
@@ -102,6 +106,7 @@ function gameOver() {
     document.getElementById('score-div').style.display = "none";
     document.getElementById('bye-message').style.display = 'block';
     cancelAnimationFrame(currentGame.animationId);
+    checkHighScore()
   } 
 
 
@@ -238,7 +243,15 @@ function brah() {
         }
       }    
     }
-  }
+    
+    for (let k = 0; k < currentGame.bullets.length; k++) {
+    
+    if (bulletHit(currentGame.boss, currentGame.bullets[k])) {
+      currentGame.score += 5
+      currentGame.boss.health -= 1;
+      currentGame.bullets.splice(k, 1);
+
+  }}}
 
  
   function updateCanvas() {
@@ -314,7 +327,7 @@ function changeLevels() {
       currentGame.level = 2;
   } else if (currentGame.score >= 10 && currentGame.score < 15) {
       
-      frequencyMod = 260;
+      frequencyMod = 300;
       currentGame.level = 3;
      
   }
@@ -347,6 +360,15 @@ currentGame.bossShots.forEach(((shot, index) => {
   console.log(shot)
 }))
   }}
+
+
+
+  function checkHighScore() {
+    if (currentGame.score > highScoreValue) {
+        highcoreValue = currentGame.score;
+        highScore.innerText = highScoreValue;
+    }
+}
 
 
 
