@@ -65,6 +65,7 @@ canvas {
   font-weight: 200;
   font-size: 80px;
   font-family: 'Press Start 2P', cursive;
+  animation: blinker 1s 3 linear;
   }
 
 .game-start-content {
@@ -82,6 +83,7 @@ canvas {
   font-weight: 200;
   font-size: 80px;
   font-family: 'Press Start 2P', cursive;
+  animation: blinker 2s 30 linear;
 }
 
 #messages {
@@ -89,6 +91,7 @@ canvas {
   align-items: stretch;
   padding-left: 80%;
   padding-right: 50%;
+  animation: blinker 2s 30linear;
 }
 
 #messages h1{
@@ -102,4 +105,76 @@ canvas {
   align-items: center;
   justify-content: center;
   position: absolute;
+  animation: blinker 2s 30 linear;
 }
+
+
+
+@keyframes rotate {
+  from {
+      transform: rotate(0);
+  }
+
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+@keyframes impenna {
+  from {
+      transform: rotate(360deg);
+  }
+
+  to {
+      transform: rotate(320deg);
+  }
+}
+
+@keyframes shake {
+  from {
+      width: 80px;
+      height: 80px;
+  }
+
+  to {
+      width: 82px;
+      height: 82px;
+  }
+}
+
+@keyframes blinker {
+  50% {
+      opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0% {
+      transform: scale(1, 1) translateY(-20);
+  }
+
+  10% {
+      transform: scale(1.1, .9) translateY(0);
+  }
+
+  30% {
+      transform: scale(.9, 1.1) translateY(-40px);
+  }
+
+  50% {
+      transform: scale(1.05, .95) translateY(0);
+  }
+
+  57% {
+      transform: scale(1, 1) translateY(-7px);
+  }
+
+  64% {
+      transform: scale(1, 1) translateY(0);
+  }
+
+  100% {
+      transform: scale(1, 1) translateY(-5);
+  }
+}
+
