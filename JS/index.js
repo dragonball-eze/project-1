@@ -297,13 +297,14 @@ function changeLevels() {
       frequencyMod = 400;
       currentGame.level = 1;
 
-  } else if (currentGame.score >= 10 && currentGame.score < 13) { 
+  } else if (currentGame.score >= 10 && currentGame.score < 20) { 
      
-      frequencyMod = 360;
+      frequencyMod = 300;
       currentGame.level = 2;
-  } else if (currentGame.score >= 13 && currentGame.score < 15) {
       
-      frequencyMod = 320;
+  } else if (currentGame.score >= 20 && currentGame.score < 30) {
+      
+      frequencyMod = 200;
       currentGame.level = 3;
      
   }
