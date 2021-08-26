@@ -85,6 +85,7 @@ let currentGame;
    this.bullets = [];
    this.satellites = [];
    this.aliens = [];
+   this.shots = [];
    this.score = 0;
    document.getElementById("score").innerHTML = 0;
    context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
@@ -238,11 +239,6 @@ function brah() {
         }
       }    
     }
-  /*   for (let j = 0; j < currentGame.bossShots.length; j++){
-        
-          if (bulletHit(currentGame.satellites[j],currentGame.bullets[k])){
-              currentGame.satellites.splice(j,1);
-              currentGame.bullets.splice(k,1); */
 
   }
 
@@ -304,23 +300,23 @@ function changeLevels() {
   console.log(currentGame.bossStage)
   document.getElementById('messages').style.display = 'none';
 
-  if (currentGame.score >= 10 && currentGame.score <20 || currentGame.score >= 20 && currentGame.score < 30) {
+  if (currentGame.score >= 5 && currentGame.score < 6|| currentGame.score >= 10 && currentGame.score < 11) {
     document.getElementById('messages').style.display = 'block';
     levelUpSound.play()
   }
 
   if (currentGame.score <10) {
       
-      frequencyMod = 400;
+      frequencyMod = 380;
       currentGame.level = 1;
 
   } else if (currentGame.score >= 10 && currentGame.score < 20) { 
      
-      frequencyMod = 300;
+      frequencyMod = 320;
       currentGame.level = 2;
   } else if (currentGame.score >= 20 && currentGame.score < 30) {
       
-      frequencyMod = 250;
+      frequencyMod = 260;
       currentGame.level = 3;
      
   }
@@ -332,7 +328,7 @@ function changeLevels() {
         currentGame.bossStage = true;
         currentGame.boss.move();
         currentGame.boss.draw();
-        //frequencyMod = 999999999999;
+        frequencyMod = Infinity;
        } 
       
   } 
@@ -341,9 +337,7 @@ function changeLevels() {
   function bossShots () {
 
   if (currentGame.bossStage === true) {
-      //
-      
-      if (currentGame.aliensFrequency % (frequencyMod - 200) === 1) {
+      if (currentGame.aliensFrequency % 75 === 1) {
              const newBossShot = new BossShot(currentGame.boss.x + 45, (currentGame.boss.y + currentGame.boss.height), 10, 8,);
              currentGame.bossShots.push(newBossShot); 
           
@@ -365,11 +359,36 @@ function bossShotHit(player, shot) {
       shot.y > player.y + player.height ||
       shot.y + shot.height < player.y)
   }
+};
+
+//boss shot collision
+function detectCollision(shot) {
+  return !(
+    currentGame.player.moveLeft() > shot.right() ||
+    currentGame.player.moveRight() < shot.left() ||
+    currentGame.player.moveTop() > shot.bottom() ||
+    currentGame.player.moveDown() < shot.top() 
+  );
 }
 
+if (detectCollision(shot)) {
+  gameOver();
+  currentGame.gameOver = true;
+  currentGame.shotsFrequency = 0
+  currentGame.shots = [];
+  document.getElementById("space-board").style.display = "none";
+  cancelAnimationFrame(currentGame.animationId);
+  alert("Mission Failed: the Boss gotcha!");
+  
+if (shot.y > player.y) {
+  currentGame.shots.splice(index, 1);
 
+for (let k = 0; k < currentGame.shots.length; k++) {
+      
+  if (bossShotHit(currentGame.shots[k])){
+      currentGame.shots.splice(k,1);
+    }
+  } 
+};
 
-
-   
-
-
+}
