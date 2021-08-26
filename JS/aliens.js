@@ -11,3 +11,6 @@ class Alien extends Obstacle {
         context.strokeRect(this.x, this.y, this.width, this.height);
       }
     }
+
+    
+ 

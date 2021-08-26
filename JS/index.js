@@ -1,8 +1,8 @@
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 const width =canvas.width;const height=canvas.height;
-let frequencyMod
-let changeLevel = false 
+let frequencyMod;
+let changeLevel = false ;
 let right;
 document.getElementById("space-board").style.display="none";//to make the game invisible at first
 document.querySelector(".game-start").style.display = "none";
@@ -71,7 +71,7 @@ let currentGame;
    function startGame() {
     gameIntroSound.play();
     currentGame = new Game();
-    currentGame.boss = new Boss(/*canvas.clientWidth / 2 - 40, -90*/);
+    currentGame.boss = new Boss();
     currentGame.player = new Player();
     currentGame.player.drawPlayer();
     const bullet = new Bullet();
@@ -80,7 +80,7 @@ let currentGame;
     updateCanvas();
     document.getElementById("score").innerHTML = currentGame.score
     console.log("works")
-    //currentGame.boss.draw()
+    
   }
 
 
@@ -260,7 +260,8 @@ function brah() {
       bullet.y -= 3;
       bullet.drawBullet();
       });
-
+    
+    
     drawSatellite();
     drawAlien();
     brah();
@@ -338,12 +339,24 @@ function changeLevels() {
         //document.getElementById('messages').style.display = 'block';
         //setTimeout(clearMessages, 5000);
         //levelUpSound.play()
-        //currentGame.bossStage = true;
+        currentGame.bossStage = true;
         currentGame.boss.move();
         currentGame.boss.draw();
         frequencyMod = Infinity;
        } 
       
   } 
+  
+  
+  function bossShots () {
+
+    if (currentGame.bossStage === true) {
+
+             const newBossShot = new BossShot(currentGame.boss.x + 45, (currentGame.boss.y + currentGame.boss.height), 10, 8,);
+             currentGame.bossShots.push(newBossShot);
+          
+} }
+
+   
 
 

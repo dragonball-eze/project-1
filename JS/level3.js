@@ -1,9 +1,9 @@
 class Boss {
     constructor() {
         this.x = 200;
-        this.y = 20;
+        this.y = 5;
         this.width = 80;
-        this.height = 75;
+        this.height = 80;
         this.health = 100;
         const img = new Image();
         img.src = "../images/doge.png";
@@ -18,7 +18,7 @@ class Boss {
             this.width = 60;
             this.height = 60;
             context.drawImage(this.image, this.x, this.y, this.width, this.height);
-        } else if (this.health > 15) {
+        } else if (this.health > 25) {
             this.width = 40;
             this.height = 40;
             const img2 = new Image();
@@ -37,18 +37,18 @@ class Boss {
 
     
     move() {
-        if (this.y < 10) {
+        if (this.y < 50) {
             this.y += 0.5;
         }  
         
 
-        if (this.y === 10 &&  this.x < ((canvas.clientWidth - 10) - this.width) && right === true) {
+        if (this.y === 50 &&  this.x < ((canvas.clientWidth - 10) - this.width) && right === true) {
             this.x += 1.5;
         } else {
             right = false;
         }
 
-        if (this.y === 10 && right === false && this.x > 10) {
+        if (this.y === 50 && right === false && this.x > 10) {
             this.x -= 1.5;
         } else {
             right = true;
@@ -76,13 +76,19 @@ class Boss {
 
 
 
-  /*if (
-      bullet.top() < currentGame.boss.bottom() &&
-      bullet.right() > currentGame.boss.left() &&
-      bullet.left() < currentGame.boss.right()
-  ) {
-      currentGame.boss.health -= 1;
-      currentGame.bullet.splice(indexShot, 1);
-      console.log(currentGame.boss.health); //
 
-  }*/
+      class BossShot extends Obstacle {
+      constructor(x, y, width, height) {
+          super(x, y, width, height);
+          
+      }
+  
+      draw() {
+          const bossShot = new Image();
+          bossShot.src = "/images/coin.png"
+      }  
+      
+  }
+    
+    
+  

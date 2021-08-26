@@ -11,6 +11,8 @@ class Game {
       this.aliensFrequency = 0;
       this.gameOver = false;
       this.animationId = null;
+      this.bossShots = [];
+      this.bossStage = false;
     }
   }
 
