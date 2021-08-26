@@ -298,7 +298,7 @@ function changeLevels() {
   console.log(currentGame.bossStage)
   document.getElementById('messages').style.display = 'none';
 
-  if (currentGame.score >= 10 && currentGame.score <11 || currentGame.score >= 13 && currentGame.score < 14) {
+  if (currentGame.score >= 10 && currentGame.score <20 || currentGame.score >= 20 && currentGame.score < 30) {
     document.getElementById('messages').style.display = 'block';
     levelUpSound.play()
   }
@@ -310,11 +310,11 @@ function changeLevels() {
 
   } else if (currentGame.score >= 2 && currentGame.score < 2) { 
      
-      frequencyMod = 360;
+      frequencyMod = 300;
       currentGame.level = 2;
   } else if (currentGame.score >= 3 && currentGame.score < 4) {
       
-      frequencyMod = 320;
+      frequencyMod = 250;
       currentGame.level = 3;
      
   }
