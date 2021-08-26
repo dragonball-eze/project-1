@@ -138,6 +138,7 @@ function gameOver() {
       }
 
       if (detectCollision(satellite)) {
+        gameOver();
         console.log(satellite);
         console.log(currentGame.player);
         currentGame.gameOver = true;
@@ -148,7 +149,7 @@ function gameOver() {
         document.getElementById("space-board").style.display = "none";
         cancelAnimationFrame(currentGame.animationId);
         alert("Ouch! You crashed on a satellite!");
-        gameOver();
+        
       }
 
       if (satellite.y > canvas.clientHeight) {
@@ -159,6 +160,9 @@ function gameOver() {
   }
   // Aliens
   function drawAlien() {
+  
+
+   
     currentGame.aliensFrequency++;
     if (currentGame.aliensFrequency % (frequencyMod - 200) === 1) {
       const randomAlienX = Math.floor(Math.random() * 450);
@@ -173,7 +177,11 @@ function gameOver() {
     }
 
     currentGame.aliens.forEach((alien, index) => {
-      alien.y += 1;
+      if (!currentGame.gameOver){
+        alien.y += 1;
+      } else {
+        alien.y += 0;
+      }
       alien.draw();
       
       //Alien collision
@@ -186,6 +194,19 @@ function gameOver() {
         );
       }
 
+      if (alien.y > canvas.clientWidth) {
+              currentGame.aliens.splice(index, 1);
+              currentGame.gameOver = true;
+              currentGame.aliensFrequency = 0;
+              currentGame.aliens = [];
+              document.getElementById("space-board").style.display = "none";
+              cancelAnimationFrame(currentGame.animationId);
+              alert("Mission failed: an alien is invading Earth... So long!");
+              gameOver()
+            }
+
+
+            
       if (detectCollision(alien)) {
         console.log(alien);
         console.log(currentGame.player);
@@ -201,20 +222,13 @@ function gameOver() {
       }
 
 
-      if (alien.y > canvas.clientWidth) {
-        currentGame.aliens.splice(index, 1);
-        currentGame.gameOver = true;
-        currentGame.aliensFrequency = 0;
-        currentGame.aliens = [];
-        document.getElementById("space-board").style.display = "none";
-        cancelAnimationFrame(currentGame.animationId);
-        alert("Missing failed: an alien is invading Earth... So long!");
-        gameOver()
-      }
+      
 
       
     });
 
+
+    
   }
 
 function brah() {
