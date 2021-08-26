@@ -301,10 +301,10 @@ function changeLevels() {
      
       frequencyMod = 300;
       currentGame.level = 2;
-      
+
   } else if (currentGame.score >= 20 && currentGame.score < 30) {
       
-      frequencyMod = 200;
+      frequencyMod = 250;
       currentGame.level = 3;
      
   }
