@@ -107,6 +107,7 @@ function gameOver() {
   document.querySelector(".game-start").style.display = "none";
   document.getElementById("score-div").style.display = "none";
   document.getElementById("bye-message").style.display = "block";
+  document.getElementById("game-win").style.display = "none"
   cancelAnimationFrame(currentGame.animationId);
   checkHighScore();
 }
@@ -236,12 +237,19 @@ function brah() {
   }
 
   if (currentGame.boss.health <= 0) {
-    //gameWin();
-    gameOver();
+    gameWin();
+    
 }
 }
 
-//gameWin()
+gameWin{
+  document.querySelector(".game-start").style.display = "none";
+  document.getElementById("score-div").style.display = "none";
+  document.getElementById("bye-message").style.display = "none";
+  document.getElementById("game-win").style.display = "block"
+  cancelAnimationFrame(currentGame.animationId);
+  checkHighScore();
+}
 
 
 
