@@ -8,8 +8,20 @@ body {
       color: white;
   }
   
-  .logo-img {
-    width: 350px;
+  #logo-img {
+    
+    width: 900px;
+    cursor: pointer;
+  }
+
+  h2 {
+    color: white;
+    text-decoration-color: white;
+  }
+
+  #logo-img2 {
+    
+    width: 400px;
   }
 
   .arrows-img {
@@ -22,7 +34,7 @@ body {
   
   body button {
     font-size: 30px;
-    background-color: #240177;
+    background-color: #702eca;
     color: #fff;
     padding: 20px 40px;
     border: 0;
@@ -30,6 +42,12 @@ body {
     border-radius: 5px;
     margin-bottom: 20px;
   }
+
+  body button:hover {
+    cursor: pointer;
+    background-color: #fffba2;
+    border: 2px solid #fffba2;
+}
 
 #space-board {
     float: left;
@@ -44,17 +62,17 @@ canvas {
 
 
 #score-div p{
-  font-size: 15px;
+  font-size: 20px;
   text-shadow: grey;
   margin-bottom: 0px;
   margin-top: 10px;
-  margin-left: 500px;
-  margin-right: 500px;
+  margin-left: 600px;
+  margin-right: 600px;
 
   margin-top: 20px;
-  font-family: 'Press Start 2P', cursive;
-  color: black;
-  background-color:yellow;
+  font-family: 'Press Start 2P',;
+  color: white;
+  background-color: #702eca;
   padding: 10px;
 }
 
@@ -64,7 +82,7 @@ canvas {
   color: yellow;
   font-weight: 200;
   font-size: 80px;
-  font-family: 'Press Start 2P', cursive;
+  font-family: 'Press Start 2P', ;
   animation: blinker 1s 3 linear;
   }
 
@@ -79,10 +97,10 @@ canvas {
 }
 
 #bye-message h1{
-  color: yellow;
+  color: #fffba2;
   font-weight: 200;
   font-size: 80px;
-  font-family: 'Press Start 2P', cursive;
+  font-family: 'Press Start 2P',;
   animation: blinker 2s 30 linear;
 }
 
@@ -99,8 +117,8 @@ canvas {
   text-shadow: grey;
   margin-top: -200px;
   margin-left: -240px;
-  font-family: 'Press Start 2P', cursive;
-  color: yellow;
+  font-family: 'Press Start 2P', ;
+  color: #fffba2;
   padding: 10px;
   align-items: center;
   justify-content: center;

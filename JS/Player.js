@@ -6,6 +6,7 @@ class Player {
      this.height = 50;
      this.speedX = 0;
      this.speedY = 0;
+     this.friction = 0.975;
   }
 
   drawPlayer(){

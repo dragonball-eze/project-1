@@ -7,8 +7,8 @@ class Alien extends Obstacle {
         const alien = new Image();
         alien.src = "./images/aliens.png";
         context.drawImage(alien, this.x, this.y, this.width, this.height);
-        context.strokeStyle = "green";
-        context.strokeRect(this.x, this.y, this.width, this.height);
+        //context.strokeStyle = "yellow"
+        //context.strokeRect(this.x, this.y, this.width, this.height);
       }
     }
 
