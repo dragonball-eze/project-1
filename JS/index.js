@@ -20,6 +20,7 @@ document.getElementById("start-button").onclick = () => {
   document.querySelector(".game-intro").style.display = "none";
   document.querySelector(".game-start").style.display = "block";
   document.getElementById("score-div").style.display = "block";
+  document.querySelector("#high-score").style.display = "none";
   canvas.focus();
   startGame();
 };
@@ -53,6 +54,9 @@ levelUpSound.src = "../sounds/sounds_levelUp.mp3";
 const explosionSound = new Audio();
 explosionSound.src = "../sounds/sounds_siclone_explosion.wav";
 
+const noise = new Audio ();
+noise.src = "../Sounds/noise.mp3"
+
 //Bullet impact
 function bulletHit(alien, bullet) {
   if (bullet && alien) {
@@ -67,6 +71,7 @@ function bulletHit(alien, bullet) {
 
 function startGame() {
   gameIntroSound.play();
+  noise.play()
   currentGame = new Game();
   currentGame.boss = new Boss();
   currentGame.player = new Player();
@@ -125,8 +130,8 @@ function drawSatellite() {
     //Satellite collision
     function detectCollision(satellite) {
       return !(
-        currentGame.player.moveLeft() > satellite.right() ||
-        currentGame.player.moveRight() < satellite.left() ||
+        currentGame.player.moveLeft() > (satellite.right() - 15)  ||
+        currentGame.player.moveRight() < (satellite.left() + 15) ||
         currentGame.player.moveTop() > satellite.bottom() ||
         currentGame.player.moveDown() < satellite.top()
       );
@@ -231,7 +236,8 @@ function brah() {
   }
 
   if (currentGame.boss.health <= 0) {
-    gameWin();
+    //gameWin();
+    gameOver();
 }
 }
 
@@ -250,11 +256,13 @@ function updateCanvas() {
     bullet.y -= 3;
     bullet.drawBullet();
   });
-
+  smoothMovementY()
+  smoothMovementX()
   drawSatellite();
   drawAlien();
   brah();
   bossShots();
+  checkHighScore();
 
   if (currentGame.gameOver === false) {
     currentGame.animationId = requestAnimationFrame(updateCanvas);
@@ -292,20 +300,20 @@ function changeLevels() {
   document.getElementById("messages").style.display = "none";
 
   if (
-    (currentGame.score >= 2 && currentGame.score < 3) ||
-    (currentGame.score >= 4 && currentGame.score < 5)
+    (currentGame.score >= 10 && currentGame.score < 11) ||
+    (currentGame.score >=  20 && currentGame.score < 21)
   ) {
     document.getElementById("messages").style.display = "block";
     levelUpSound.play();
   }
 
-  if (currentGame.score < 2) {
+  if (currentGame.score < 10) {
     frequencyMod = 380;
     currentGame.level = 1;
-  } else if (currentGame.score >= 2 && currentGame.score < 4) {
+  } else if (currentGame.score >= 10 && currentGame.score < 20) {
     frequencyMod = 320;
     currentGame.level = 2;
-  } else if (currentGame.score >= 4 && currentGame.score < 6) {
+  } else if (currentGame.score >= 20 && currentGame.score < 30) {
     frequencyMod = 300;
     currentGame.level = 3;
   } else {
@@ -363,27 +371,42 @@ function bossShots() {
 }
 
 
-function smoothMovement() {  
-  if (currentGame.player.x >= (height - (currentGame.player.width + 5))) {
+function smoothMovementY() {  
+  if (currentGame.player.y >= (height - (currentGame.player.height + 5))) {
       
-      currentGame.player.y = height - (currentGame.player.width + 5);
+      currentGame.player.y = height - (currentGame.player.height + 5);
       
-  } else if (currentGame.ship.y <= 5) {
+  } else if (currentGame.player.y <= 5) {
       
       currentGame.player.y = 5;
       
   }
-
   currentGame.player.speedY *= currentGame.player.friction; 
-  currentGame.player.y += currentGame.player.speedY;
+   currentGame.player.y += currentGame.player.speedY;
+}
+
+function smoothMovementX() {  
+  if (currentGame.player.x >= (width - (currentGame.player.width + 5))) {
+      
+      currentGame.player.x = width- (currentGame.player.width + 5);
+      
+  } else if (currentGame.player.x <= 5) {
+      
+      currentGame.player.x = 5;
+      
+  }
+
+  currentGame.player.speedX *= currentGame.player.friction; 
+  currentGame.player.x += currentGame.player.speedX;
 }
 
 
 
 function checkHighScore() {
   if (currentGame.score > highScoreValue) {
+    document.querySelector("#high-score").style.display = "block";
     highScoreValue = currentGame.score;
-    highScore.innerText = highScoreValue;
+    highScore.innerText = `High Score: ${highScoreValue}!`;
   }
 }
 

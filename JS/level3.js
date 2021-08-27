@@ -71,8 +71,10 @@ class Boss {
 }
 
 class BossShot extends Obstacle {
-  constructor(x, y, width, height) {
-    super(x, y, width, height);
+  constructor(x, y) {
+    super(x, y,)
+    this.width = 25;
+    this.height = 25;
   }
 
   draw() {
@@ -80,5 +82,6 @@ class BossShot extends Obstacle {
     bossShot.src = "/images/coin.png";
     this.image = bossShot;
     context.drawImage(this.image, this.x, this.y, 25, 25);
+   
     }
 }

@@ -1,6 +1,8 @@
 class Alien extends Obstacle {
-    constructor(x, y, width, height) {
-        super(x, y, width, height);
+    constructor(x, y) {
+        super(x, y);
+        this.width = 50;
+        this.height = 50;
       }
 
       draw() {

@@ -1,4 +1,6 @@
 body {
+  height: 650px;
+  margin: 0;
     padding: 0;
     text-align: center;
     background-color: black;
@@ -14,9 +16,10 @@ body {
     cursor: pointer;
   }
 
-  h2 {
+  #high-score {
     color: white;
     text-decoration-color: white;
+    animation: slide-right ;
   }
 
   #logo-img2 {
@@ -31,6 +34,13 @@ body {
   .space-img {
     width: 250px;
   }
+
+  .moon-img {
+    transform: rotate(30deg);
+    animation: bounce 1s infinite;
+  }
+
+  
   
   body button {
     font-size: 30px;
@@ -55,7 +65,7 @@ body {
 }
 
 canvas {
-    background-image: url(./images/space-board.png);
+    background-image: url(./images/j.gif);
     background-size: cover;
 }
 
@@ -138,15 +148,18 @@ canvas {
   }
 }
 
-@keyframes impenna {
+@keyframes slide-right {
   from {
-      transform: rotate(360deg);
+    margin-left: -100%;
+    width: 300%; 
   }
 
-  to {
-      transform: rotate(320deg);
-  }
+to {
+  margin-left: 0%;
+  width: 100%;
 }
+}
+
 
 @keyframes shake {
   from {
